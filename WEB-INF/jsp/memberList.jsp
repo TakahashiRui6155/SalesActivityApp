@@ -12,6 +12,9 @@
 
 <h1>会員一覧</h1>
 
+<a href="<%= request.getContextPath() %>/logout">ログアウト</a>
+<br><br>
+
 <table border="1">
     <tr>
         <th>ID</th>
