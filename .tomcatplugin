@@ -8,6 +8,10 @@
     <updateXml>true</updateXml>
     <warLocation></warLocation>
     <extraInfo></extraInfo>
-    <mavenClasspath>false</mavenClasspath>
+    <mavenClasspath>true</mavenClasspath>
     <webPath>/SalesActivityApp</webPath>
+    <webClassPathEntries>
+        <webClassPathEntry>/SalesActivityApp/WEB-INF/classes</webClassPathEntry>
+        <webClassPathEntry>/SalesActivityApp/work</webClassPathEntry>
+    </webClassPathEntries>
 </tomcatProjectProperties>
