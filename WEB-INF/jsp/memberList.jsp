@@ -12,7 +12,10 @@
 
 <h1>会員一覧</h1>
 
-<a href="<%= request.getContextPath() %>/logout">ログアウト</a>
+<a href="<%= request.getContextPath() %>/Logout">ログアウト</a>
+&nbsp;&nbsp;
+<a href="<%= request.getContextPath() %>/MemberRegisterServlet">新規会員登録</a>
+
 <br><br>
 
 <table border="1">
