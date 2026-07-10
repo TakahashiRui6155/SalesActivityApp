@@ -27,6 +27,7 @@
         <th>部署</th>
         <th>役職</th>
         <th>権限</th>
+        <th>操作</th>
     </tr>
 
 <%
@@ -42,6 +43,11 @@
         <td><%= member.getDepartment() %></td>
         <td><%= member.getPosition() %></td>
         <td><%= member.getRole() %></td>
+        <td>
+            <a href="<%= request.getContextPath() %>/memberEdit?id=<%= member.getId() %>">
+                編集
+        </a>
+    </td>
     </tr>
 <%
     }
