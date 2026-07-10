@@ -44,8 +44,15 @@
         <td><%= member.getPosition() %></td>
         <td><%= member.getRole() %></td>
         <td>
-            <a href="<%= request.getContextPath() %>/memberEdit?id=<%= member.getId() %>">
-                編集
+        <a href="<%= request.getContextPath() %>/memberEdit?id=<%= member.getId() %>">
+            編集
+        </a>
+
+        &nbsp;
+
+        <a href="<%= request.getContextPath() %>/memberDelete?id=<%= member.getId() %>"
+           onclick="return confirm('この会員を削除してもよろしいですか？');">
+            削除
         </a>
     </td>
     </tr>

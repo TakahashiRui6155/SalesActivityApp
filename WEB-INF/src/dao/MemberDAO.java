@@ -120,4 +120,19 @@ public class MemberDAO {
             return ps.executeUpdate();
         }
     }
+    
+    public int delete(int id) throws Exception {
+
+        String sql = "DELETE FROM members WHERE id = ?";
+
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+
+            ps.setInt(1, id);
+
+            return ps.executeUpdate();
+        }
+    }
 }
