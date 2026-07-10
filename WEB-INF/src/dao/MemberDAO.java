@@ -40,4 +40,24 @@ public class MemberDAO {
 
         return memberList;
     }
+    public int insert(Member member) throws Exception {
+
+        String sql = "INSERT INTO members "
+                + "(name, furigana, employee_no, department, position, role) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, member.getName());
+            ps.setString(2, member.getFurigana());
+            ps.setInt(3, member.getEmployeeNo());
+            ps.setString(4, member.getDepartment());
+            ps.setString(5, member.getPosition());
+            ps.setString(6, member.getRole());
+
+            return ps.executeUpdate();
+        }
+    }
 }
