@@ -24,6 +24,7 @@ public class ActivityRecordRegisterServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		System.out.println("登録するmemberId = " + memberId);
 
 		java.sql.Date recordDate =
 		        java.sql.Date.valueOf(request.getParameter("recordDate"));

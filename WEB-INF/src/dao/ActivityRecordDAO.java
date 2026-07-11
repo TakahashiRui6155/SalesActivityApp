@@ -22,7 +22,10 @@ public class ActivityRecordDAO {
 	        Connection con = DBConnection.getConnection();
 	        PreparedStatement ps = con.prepareStatement(sql)
 	    ) {
-
+	    	System.out.println(
+	    		    "DAOで受け取ったmemberId = " + activityRecord.getMemberId()
+	    		);
+	    	
 	        ps.setInt(1, activityRecord.getMemberId());
 	        ps.setDate(2, activityRecord.getRecordDate());
 	        ps.setDate(3, activityRecord.getPeriodStart());
@@ -76,6 +79,8 @@ public class ActivityRecordDAO {
 	            list.add(activity);
 	        }
 
+	    }catch (Exception e) {
+	        e.printStackTrace();
 	    }
 
 	    return list;
