@@ -16,6 +16,7 @@ public class ActivityRecord {
 	private int emailResponseCount;
 	private int apCount;
 	private int apGoal;
+	private String memberName;
 
 	public ActivityRecord() {
 	}
@@ -32,7 +33,8 @@ public class ActivityRecord {
 			int phoneConversationCount,
 			int emailResponseCount,
 			int apCount,
-			int apGoal) {
+			int apGoal,
+			String memberName) {
 
 		this.id = id;
 		this.memberId = memberId;
@@ -46,6 +48,7 @@ public class ActivityRecord {
 		this.emailResponseCount = emailResponseCount;
 		this.apCount = apCount;
 		this.apGoal = apGoal;
+		this.memberName = memberName;
 	}
 
 	public int getId() {
@@ -142,5 +145,13 @@ public class ActivityRecord {
 
 	public void setApGoal(int apGoal) {
 		this.apGoal = apGoal;
+	}
+	
+	public String getMemberName() {
+	    return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+	    this.memberName = memberName;
 	}
 }
