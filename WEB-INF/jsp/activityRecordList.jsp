@@ -27,6 +27,7 @@
         <th>電話商談</th>
         <th>メール返信</th>
         <th>アポ件数</th>
+        <th>操作</th>
     </tr>
 
     <% if (activityList != null) { %>
@@ -42,6 +43,11 @@
                 <td><%= activity.getPhoneConversationCount() %></td>
                 <td><%= activity.getEmailResponseCount() %></td>
                 <td><%= activity.getApCount() %></td>
+                <td>
+                     <a href="<%=request.getContextPath()%>/activity-record-edit?id=<%=activity.getId()%>">
+                         編集
+                     </a>
+                </td>
             </tr>
 
         <% } %>
