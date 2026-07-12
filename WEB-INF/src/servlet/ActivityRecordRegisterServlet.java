@@ -78,7 +78,9 @@ public class ActivityRecordRegisterServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 
-		response.sendRedirect("member-list");
+		response.sendRedirect(
+			    request.getContextPath() + "/activity-record-list"
+	    );
 
 	}
 }
