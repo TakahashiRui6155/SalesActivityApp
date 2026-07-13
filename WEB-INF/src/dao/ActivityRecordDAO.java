@@ -1,11 +1,13 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ActivityRanking;
 import model.ActivityRecord;
 
 public class ActivityRecordDAO {
@@ -170,6 +172,142 @@ public class ActivityRecordDAO {
 
 	        return ps.executeUpdate();
 	    }
+	}
+	
+	public boolean delete(int id) {
+
+	    String sql = "DELETE FROM activity_records WHERE id = ?";
+
+	    try (
+	        Connection conn = DBConnection.getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql)
+	    ) {
+
+	        pstmt.setInt(1, id);
+
+	        int result = pstmt.executeUpdate();
+
+	        return result > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public List<ActivityRanking> findRanking(
+	        Date startDate,
+	        Date endDate,
+	        String rankingType) throws Exception {
+
+	    List<ActivityRanking> rankingList = new ArrayList<>();
+
+	    String orderBy;
+
+	    switch (rankingType) {
+
+	    case "appointmentRate":
+	        orderBy = "appointment_rate DESC";
+	        break;
+
+	    case "visit":
+	        orderBy = "total_visit_count DESC";
+	        break;
+
+	    case "phone":
+	        orderBy = "total_phone_count DESC";
+	        break;
+
+	    case "email":
+	        orderBy = "total_email_count DESC";
+	        break;
+
+	    case "appointments":
+	    default:
+	        orderBy = "total_appointments DESC";
+	        break;
+	    }
+
+	    String sql =
+	            "SELECT "
+	          + "m.id AS member_id, "
+	          + "m.name AS member_name, "
+	          + "SUM(ar.activity_count) AS total_activity_count, "
+	          + "SUM(ar.ap_count) AS total_appointments, "
+	          + "SUM(ar.visit_conversation_count) AS total_visit_count, "
+	          + "SUM(ar.phone_conversation_count) AS total_phone_count, "
+	          + "SUM(ar.email_response_count) AS total_email_count, "
+	          + "CASE "
+	          + "WHEN SUM(ar.activity_count) = 0 THEN 0 "
+	          + "ELSE SUM(ar.ap_count) * 100.0 "
+	          + "/ SUM(ar.activity_count) "
+	          + "END AS appointment_rate "
+	          + "FROM activity_records ar "
+	          + "INNER JOIN members m "
+	          + "ON ar.member_id = m.id "
+	          + "WHERE ar.record_date BETWEEN ? AND ? "
+	          + "GROUP BY m.id, m.name "
+	          + "ORDER BY " + orderBy + ", "
+	          + "total_activity_count DESC, "
+	          + "m.id ASC";
+
+	    try (
+	        Connection connection =
+	                DBConnection.getConnection();
+
+	        PreparedStatement statement =
+	                connection.prepareStatement(sql)
+	    ) {
+
+	        statement.setDate(1, startDate);
+	        statement.setDate(2, endDate);
+
+	        try (
+	            ResultSet resultSet =
+	                    statement.executeQuery()
+	        ) {
+
+	            while (resultSet.next()) {
+
+	                ActivityRanking ranking =
+	                        new ActivityRanking();
+
+	                ranking.setMemberId(
+	                        resultSet.getInt("member_id"));
+
+	                ranking.setMemberName(
+	                        resultSet.getString("member_name"));
+
+	                ranking.setTotalActivityCount(
+	                        resultSet.getInt(
+	                                "total_activity_count"));
+
+	                ranking.setTotalAppointments(
+	                        resultSet.getInt(
+	                                "total_appointments"));
+
+	                ranking.setTotalVisitCount(
+	                        resultSet.getInt(
+	                                "total_visit_count"));
+
+	                ranking.setTotalPhoneCount(
+	                        resultSet.getInt(
+	                                "total_phone_count"));
+
+	                ranking.setTotalEmailCount(
+	                        resultSet.getInt(
+	                                "total_email_count"));
+
+	                ranking.setAppointmentRate(
+	                        resultSet.getDouble(
+	                                "appointment_rate"));
+
+	                rankingList.add(ranking);
+	            }
+	        }
+	    }
+
+	    return rankingList;
 	}
 
 }

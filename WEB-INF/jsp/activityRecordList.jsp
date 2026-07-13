@@ -44,9 +44,28 @@
                 <td><%= activity.getEmailResponseCount() %></td>
                 <td><%= activity.getApCount() %></td>
                 <td>
-                     <a href="<%=request.getContextPath()%>/activity-record-edit?id=<%=activity.getId()%>">
-                         編集
-                     </a>
+                   <form action="<%= request.getContextPath() %>/activity-record-edit"
+                         method="get"
+                         style="display:inline;">
+
+                        <input type="hidden"
+                                name="id"
+                                value="<%= activity.getId() %>">
+
+                        <button type="submit">編集</button>
+                   </form>
+
+                   <form action="<%= request.getContextPath() %>/activity-record-delete"
+                         method="get"
+                         style="display:inline;"
+                         onsubmit="return confirm('この営業成績を削除しますか？');">
+
+                        <input type="hidden"
+                               name="id"
+                               value="<%= activity.getId() %>">
+
+                        <button type="submit">削除</button>
+                   </form>
                 </td>
             </tr>
 
@@ -54,6 +73,39 @@
 
     <% } %>
 </table>
+
+<br><br>
+
+<form action="<%= request.getContextPath() %>/activity-record"
+      method="get"
+      style="display:inline;">
+
+    <button type="submit">
+        営業成績登録
+    </button>
+
+</form>
+
+<form action="<%= request.getContextPath() %>/activity-ranking"
+      method="get"
+      style="display:inline;">
+
+    <button type="submit">
+        営業成績ランキング
+    </button>
+
+</form>
+
+<form action="<%= request.getContextPath() %>/memberList"
+      method="get"
+      style="display:inline;">
+
+    <button type="submit">
+        会員一覧へ戻る
+    </button>
+
+</form>
+
 
 </body>
 </html>
