@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", user);
 
-                response.sendRedirect(request.getContextPath() + "/memberList");
+                response.sendRedirect(request.getContextPath() + "/dashboard");
 
             } else {
                 request.setAttribute("error", "社員番号またはパスワードが違います。");

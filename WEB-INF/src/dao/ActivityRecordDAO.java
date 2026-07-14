@@ -309,5 +309,34 @@ public class ActivityRecordDAO {
 
 	    return rankingList;
 	}
+	
+	public int[] getDashboardSummary() throws Exception {
+
+	    int[] summary = new int[4];
+
+	    String sql =
+	            "SELECT "
+	          + "COALESCE(SUM(activity_count), 0) AS total_activity_count, "
+	          + "COALESCE(SUM(activity_goal), 0) AS total_activity_goal, "
+	          + "COALESCE(SUM(ap_count), 0) AS total_ap_count, "
+	          + "COALESCE(SUM(ap_goal), 0) AS total_ap_goal "
+	          + "FROM activity_records";
+
+	    try (
+	        Connection conn = DBConnection.getConnection();
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery()
+	    ) {
+
+	        if (rs.next()) {
+	            summary[0] = rs.getInt("total_activity_count");
+	            summary[1] = rs.getInt("total_activity_goal");
+	            summary[2] = rs.getInt("total_ap_count");
+	            summary[3] = rs.getInt("total_ap_goal");
+	        }
+	    }
+
+	    return summary;
+	}
 
 }
