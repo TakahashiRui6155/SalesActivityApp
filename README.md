@@ -32,7 +32,7 @@
 - ログアウト
 - セッション管理
 - キャッシュ対策
-
+![ログイン画面](screenshots/loginpage.png)
 ---
 
 ### ダッシュボード
@@ -40,7 +40,7 @@
 - 営業成績サマリー表示
 - グラフ表示
 - 各画面へのメニュー
-
+![ダッシュボード](screenshots/dashboard.png)
 ---
 
 ### 会員管理
@@ -49,7 +49,7 @@
 - 新規会員登録
 - 会員編集
 - 会員削除
-
+![会員一覧](screenshots/member-List.png)
 ---
 
 ### 営業成績管理
@@ -58,7 +58,8 @@
 - 営業成績一覧
 - 営業成績編集
 - 営業成績削除
-
+![営業成績一覧](screenshots/activity-List.png)
+![営業成績登録](screenshots/activity-register.png)
 ---
 
 ### ランキング
@@ -72,7 +73,7 @@
 - メール件数ランキング
 
 を表示できます。
-
+![営業成績ランキング](screenshots/activity-Ranking.png)
 ---
 
 ## 使用技術
