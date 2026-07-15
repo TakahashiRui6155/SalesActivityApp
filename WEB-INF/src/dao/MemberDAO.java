@@ -135,4 +135,29 @@ public class MemberDAO {
             return ps.executeUpdate();
         }
     }
+    
+    public boolean existsByEmployeeNo(int employeeNo) throws Exception {
+
+        String sql =
+                "SELECT COUNT(*) "
+              + "FROM members "
+              + "WHERE employee_no = ?";
+
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+
+            ps.setInt(1, employeeNo);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+
+        return false;
+    }
 }

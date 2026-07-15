@@ -36,4 +36,39 @@ public class UserDAO {
 
         return null;
     }
+    
+    public void insert(User user) throws Exception {
+
+        String sql =
+            "INSERT INTO users(employee_no, password, role) VALUES(?, ?, ?)";
+
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+
+            ps.setInt(1, user.getEmployeeNo());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getRole());
+
+            ps.executeUpdate();
+        }
+    }
+    
+    public int deleteByEmployeeNo(int employeeNo) throws Exception {
+
+        String sql =
+                "DELETE FROM users "
+              + "WHERE employee_no = ?";
+
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+
+            ps.setInt(1, employeeNo);
+
+            return ps.executeUpdate();
+        }
+    }
 }
