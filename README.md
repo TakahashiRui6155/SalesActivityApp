@@ -10,6 +10,86 @@
 
 ---
 
+## 目次
+
+- [アプリ概要](#アプリ概要)
+- [開発目的](#開発目的)
+- [主な機能](#主な機能)
+- [使用技術](#使用技術)
+- [データベース](#データベース)
+- [主な画面](#主な画面)
+- [工夫した点](#工夫した点)
+- [今後追加したい機能](#今後追加したい機能)
+- [開発者](#開発者)
+
+---
+## システム構成
+
+ブラウザ
+     │
+HTTP
+     │
+Tomcat
+     │
+Servlet
+     │
+DAO
+     │
+MariaDB
+---
+## ディレクトリ構成
+
+```text
+SalesActivityApp
+└── WEB-INF
+    ├── src
+    │   ├── dao
+    │   │   ├── ActivityRecordDAO.java
+    │   │   ├── DBConnection.java
+    │   │   ├── MemberDAO.java
+    │   │   └── UserDAO.java
+    │   │
+    │   ├── model
+    │   │   ├── ActivityRanking.java
+    │   │   ├── ActivityRecord.java
+    │   │   ├── Member.java
+    │   │   └── User.java
+    │   │
+    │   └── servlet
+    │       ├── LoginPageServlet.java
+    │       ├── LoginServlet.java
+    │       ├── LogoutServlet.java
+    │       ├── DashboardServlet.java
+    │       ├── MemberListServlet.java
+    │       ├── MemberRegisterServlet.java
+    │       ├── MemberEditServlet.java
+    │       ├── MemberUpdateServlet.java
+    │       ├── MemberDeleteServlet.java
+    │       ├── ActivityRecordPageServlet.java
+    │       ├── ActivityRecordRegisterServlet.java
+    │       ├── ActivityRecordListServlet.java
+    │       ├── ActivityRecordEditServlet.java
+    │       ├── ActivityRecordUpdateServlet.java
+    │       ├── ActivityRecordDeleteServlet.java
+    │       └── ActivityRankingServlet.java
+    │
+    ├── jsp
+    │   ├── login.jsp
+    │   ├── dashboard.jsp
+    │   ├── memberList.jsp
+    │   ├── memberRegister.jsp
+    │   ├── memberEdit.jsp
+    │   ├── activityRecordRegister.jsp
+    │   ├── activityRecordList.jsp
+    │   ├── activityRecordEdit.jsp
+    │   └── activityRanking.jsp
+    │
+    ├── classes
+    └── web.xml
+```
+---
+
+
 ## 開発目的
 
 住宅営業活動の一環として、過去に来場されたお客様に電話をおかけしたり、資料請求してくださったお客様のもとに訪問営業をすることがありました。
@@ -130,12 +210,21 @@
 ---
 
 ## 工夫した点
-
+・デザイン面
 - スマートフォンでも利用できるレスポンシブデザイン
 - 表が増えても見やすいスクロールテーブル
 - ランキング機能を実装
 - ダッシュボードから各画面へ遷移できるUI
 - 操作しやすい統一感のあるデザイン
+- 会員一覧・営業成績一覧はスクロールテーブルを採用し、データ件数が増えても見やすいレイアウトにした。
+- 画面全体のデザインやボタンの配置・配色を統一し、操作性を向上させた。
+
+・機能面
+- Java Servlet・JSP・DAO・Modelを用いたMVCアーキテクチャで実装し、役割を分離した。
+- JDBCを利用してMariaDBと接続し、会員情報・営業成績をデータベースで一元管理した。
+- セッション管理を実装し、ログイン状態を保持するとともに、ログアウト後はキャッシュ制御によりブラウザの戻るボタンで閲覧できないようにした。
+- ランキング画面では期間指定による集計機能を実装し、営業成績を比較できるようにした。
+- ダッシュボードを作成し、営業成績のサマリーやグラフを表示するとともに、各画面へスムーズに遷移できるUIを実現した。
 
 ---
 
